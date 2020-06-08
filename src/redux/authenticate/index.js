@@ -1,3 +1,3 @@
 export * from "./actions"
-export * from "./reducers.js"
+export { loginUser, logoutUser } from "./reducers.js"
 export * from "../store.js"

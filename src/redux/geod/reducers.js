@@ -1,4 +1,5 @@
 export const geod = (state = {}, action) => {
+
     switch (action.type) {
       case 'ACTIVATE_GEOD':
         return action.geod;
