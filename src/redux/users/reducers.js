@@ -1,4 +1,4 @@
-import { CREATE_USER, GET_USER, PATCH_USER } from "./actions";
+import { CREATE_USER, GET_USER, PATCH_USER, PUTUSERPIC_USER} from "./actions";
 import { withAsyncReducer } from '../highOrderReducer'
 
 
@@ -70,3 +70,19 @@ const patchUserReduxReducer = (
 }
 
 export const patchUserRedux = withAsyncReducer(PATCH_USER, patchUserReduxReducer)
+
+
+const putUserPicReduxReducer = (
+  state = getInitStateFromStorage("putUserPic", initialState),
+  action
+) => {
+  switch(action.type){
+    case PUTUSERPIC_USER.SUCCESS:
+      initialState.result = action.payload
+      return { ...initialState };
+    default:
+      return state;
+  }
+}
+
+export const putUserPicRedux = withAsyncReducer(PUTUSERPIC_USER, putUserPicReduxReducer)

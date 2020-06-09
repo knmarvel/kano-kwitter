@@ -108,3 +108,35 @@ export const patchUser = patchUserData => (dispatch, getState) => {
       }));
     });
 };
+
+export const PUTUSERPIC_USER = createActionTypes("PUTUSERPIC_USER")
+
+export const putUserPic = putUserPicData => (dispatch, getState) => {
+  dispatch({
+    type: PUTUSERPIC_USER.START
+  })
+  const username = getState().loginUser.result.username;
+  const token = getState().loginUser.result.token;
+
+  return fetch(`${authUrl}/${username}/picture`, {
+    method: "PUT", 
+    headers: {
+      Authorization: "Bearer " + token,
+      Accept: "application/json"
+    },
+    body: new FormData(putUserPicData)
+  })
+    .then(handleJsonResponse)
+    .then(result => {
+      return dispatch({
+        type: PUTUSERPIC_USER.SUCCESS,
+        payload: result
+      });
+    })
+    .catch(err => {
+      return Promise.reject(dispatch({
+        type: PUTUSERPIC_USER.FAIL,
+        payload: err
+      }));
+    });
+};

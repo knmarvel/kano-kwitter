@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { Greeting, LogIn, Profile, SignUp, UpdateUser } from './components'
+import { Greeting, LogIn, Profile, SignUp, UpdateUser, UpdateUserPic } from './components'
 import { connect } from 'react-redux';
 import { activateGeod, closeGeod, createUser, login, logout } from '../redux/';
 
@@ -63,6 +63,9 @@ class App extends React.Component {
         </Route>
         <Route path="/update-user">
            <UpdateUser />
+        </Route>
+        <Route path="/update-user-pic">
+           <UpdateUserPic />
         </Route>
         <div>
           <h1>{this.props.geod.title || 'Hello World!'}</h1>

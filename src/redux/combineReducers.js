@@ -1,7 +1,7 @@
 import { combineReducers } from "redux"
 import { geod } from "./geod"
 import { loginUser, logoutUser } from "./authenticate"
-import { createUserRedux, getUserRedux, patchUserRedux } from "./users"
+import { createUserRedux, getUserRedux, patchUserRedux, putUserPicRedux } from "./users"
 
   
 export const reducers = combineReducers({
@@ -10,5 +10,6 @@ export const reducers = combineReducers({
     getUserRedux,
     loginUser,
     logoutUser,
-    patchUserRedux
+    patchUserRedux,
+    putUserPicRedux
   });
