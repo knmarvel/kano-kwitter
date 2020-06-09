@@ -1,7 +1,6 @@
 import React from 'react';
-import { BrowserRouter as Router, Link } from "react-router-dom";
-import { Route } from 'react-router-dom';
-import { LogIn, SignUp } from './components'
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Greeting, LogIn, Profile, SignUp, UpdateUser } from './components'
 import { connect } from 'react-redux';
 import { activateGeod, closeGeod, createUser, login, logout } from '../redux/';
 
@@ -39,19 +38,8 @@ class App extends React.Component {
   render() {
     return (
       <Router>
-        <Route path="/">
-          <div className="greeting">
-            {this.props.loginUser ? (
-                <div>
-                  Hello, {this.props.loginUser.username}
-                <button onClick={this.props.logout}>Log out</button>
-                </div>
-                ) : (
-                  <div>
-                    You are currently logged out. <Link to="/login">Log in?</Link>
-                  </div>
-              )}
-          </div>
+        <Route exact path="/">
+          <Greeting />
         </Route>
         <Route path='/login' >
             <LogIn 
@@ -69,6 +57,12 @@ class App extends React.Component {
             displayName={this.state.signUpDisplayName}
             password={this.state.signUpPassword}
           />
+        </Route>
+        <Route path="/users/:username" component={Profile}>
+          {/* <Greeting /> */}
+        </Route>
+        <Route path="/update-user">
+           <UpdateUser />
         </Route>
         <div>
           <h1>{this.props.geod.title || 'Hello World!'}</h1>

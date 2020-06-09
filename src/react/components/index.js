@@ -1,2 +1,5 @@
+export { default as Greeting } from "./Greeting.js"
 export { default as LogIn } from "./LogIn.js"
+export { default as Profile } from "./Profile.js"
 export { default as SignUp } from "./SignUp.js"
+export { default as UpdateUser } from "./UpdateUser.js"

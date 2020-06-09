@@ -48,3 +48,62 @@ export const createUser = createUserData => dispatch => {
       }));
     });
 };
+
+export const GET_USER = createActionTypes("GET_USER")
+
+export const getUser = getUserData => dispatch => {
+  dispatch({
+    type: GET_USER.START
+  })
+  return fetch(`${authUrl}/${getUserData}`, {
+    method: "GET", 
+    headers: {
+      Accept: 'application/json'
+    },
+  })
+    .then(handleJsonResponse)
+    .then(result => {
+      return dispatch({
+        type: GET_USER.SUCCESS,
+        payload: result
+      });
+    })
+    .catch(err => {
+      return Promise.reject(dispatch({
+        type: GET_USER.FAIL,
+        payload: err
+      }));
+    });
+};
+
+export const PATCH_USER = createActionTypes("PATCH_USER")
+
+export const patchUser = patchUserData => (dispatch, getState) => {
+  dispatch({
+    type: PATCH_USER.START
+  })
+  const username = getState().loginUser.result.username;
+  const token = getState().loginUser.result.token;
+
+  return fetch(`${authUrl}/${username}`, {
+    method: "PATCH", 
+    headers: {
+      Authorization: "Bearer " + token,
+      Accept: 'application/json'
+    },
+    body: JSON.stringify(patchUserData)
+  })
+    .then(handleJsonResponse)
+    .then(result => {
+      return dispatch({
+        type: PATCH_USER.SUCCESS,
+        payload: result
+      });
+    })
+    .catch(err => {
+      return Promise.reject(dispatch({
+        type: PATCH_USER.FAIL,
+        payload: err
+      }));
+    });
+};

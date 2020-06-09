@@ -1,4 +1,4 @@
-import { CREATE_USER } from "./actions";
+import { CREATE_USER, GET_USER, PATCH_USER } from "./actions";
 import { withAsyncReducer } from '../highOrderReducer'
 
 
@@ -39,3 +39,34 @@ const createUserReduxReducer = (
 }
 
 export const createUserRedux = withAsyncReducer(CREATE_USER, createUserReduxReducer)
+
+const getUserReduxReducer = (
+  state = getInitStateFromStorage("getUser", initialState),
+  action
+) => {
+  switch(action.type){
+    case GET_USER.SUCCESS:
+      initialState.result = action.payload
+      return { ...initialState };
+    default:
+      return state;
+  }
+}
+
+export const getUserRedux = withAsyncReducer(GET_USER, getUserReduxReducer)
+
+
+const patchUserReduxReducer = (
+  state = getInitStateFromStorage("patchUser", initialState),
+  action
+) => {
+  switch(action.type){
+    case PATCH_USER.SUCCESS:
+      initialState.result = action.payload
+      return { ...initialState };
+    default:
+      return state;
+  }
+}
+
+export const patchUserRedux = withAsyncReducer(PATCH_USER, patchUserReduxReducer)
