@@ -12,7 +12,7 @@ import Container from "@material-ui/core/Container";
 import Spinner from "react-spinkit";
 import Typography from "@material-ui/core/Typography";
 
-import { Greeting } from '.'
+import { DeleteUser, Greeting } from '.'
 import { getUser } from '../../redux/';
 
 
@@ -41,6 +41,7 @@ const useStyles = makeStyles((theme)=>({
 export default function SimpleCard(props) {
   const username = useLocation().pathname.slice(7);
   const loggedInUser = useSelector(state => state.loginUser.result)
+  const deletedUser = useSelector(state => state.deleteUserRedux.result)
   const classes = useStyles();
   const dispatch = useDispatch()
 
@@ -59,10 +60,21 @@ export default function SimpleCard(props) {
   const {result, loading, error } = useSelector(state => state.getUserRedux)
 
   return (
+    <div>
+    <div>
+            <Greeting />
+    </div>
     <Container component="main" maxWidth="xs">
-      <Greeting />
       <div className={classes.paper}>
         <Card className={classes.root}>
+          {deletedUser ? <CardContent>
+            <Typography className={classes.title}
+              color="textSecondary"
+              gutterBottom>
+            User has been deleted.
+            <Link to="/">Go home.</Link>
+            </Typography>
+            </CardContent> :
           <CardContent>
             <Typography
               className={classes.title}
@@ -75,7 +87,7 @@ export default function SimpleCard(props) {
               <div>
                 <Typography style={{display: 'flex'}} variant="h5" component="h2">
                   <span style={{display: 'flex', alignItems:'center'}} >
-                    <Avatar alt={result.user.displayName} src={`https://cjkkwitter.herokuapp.com${result.user.pictureLocation.slice(0,19)}`} className={classes.large} /> {result.user.displayName}</span>
+                    <Avatar alt={result.user.displayName} src={result.user.pictureLocation && `https://cjkkwitter.herokuapp.com${result.user.pictureLocation.slice(0,19)}`} className={classes.large} /> {result.user.displayName}</span>
                 </Typography>
                 <Typography className={classes.pos} color="textSecondary">
                   User created: {new Date(result.user.createdAt).toDateString()}
@@ -90,21 +102,23 @@ export default function SimpleCard(props) {
             {loading && <Spinner name="circle" color="blue" />}
             {error && <p style={{ color: "red" }}>{error.message}</p>} 
             
-          </CardContent>
+            </CardContent> }
           <CardActions>
-            {profileBelongsToLoggedInUser() &&(
+            {result && profileBelongsToLoggedInUser() &&(
               <div classname="update-buttons">
                 <Button component={Link} to="/update-user" size="small">
                   Update User
                 </Button> 
                 <Button component={Link} to="/update-user-pic" size="small">
                   Update User Picture
-                </Button> 
+                </Button>
+                <DeleteUser>{result.user.username}</DeleteUser> 
               </div>
            )}
           </CardActions>
         </Card>
       </div>
     </Container>
+    </div>
   );
 }

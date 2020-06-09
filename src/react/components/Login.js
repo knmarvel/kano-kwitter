@@ -1,7 +1,6 @@
 import React from 'react'
-import { Redirect } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import { useLocation, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';

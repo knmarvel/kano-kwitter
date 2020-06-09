@@ -1,4 +1,5 @@
 import { LOGIN_USER, LOGOUT_USER } from "./actions";
+import { DELETE_USER } from "../users"
 import { withAsyncReducer } from '../highOrderReducer'
 
 const initialLoginState = {
@@ -37,6 +38,8 @@ const loginUserReducer = (
 ) => {
   switch (action.type) {
     case LOGOUT_USER.SUCCESS:
+      return { ...initialState}
+    case DELETE_USER.SUCCESS:
       return { ...initialState}
     default:
       return state;

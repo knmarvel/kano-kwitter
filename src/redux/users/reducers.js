@@ -1,4 +1,4 @@
-import { CREATE_USER, GET_USER, PATCH_USER, PUTUSERPIC_USER} from "./actions";
+import { CREATE_USER, DELETE_USER, GET_USER, PATCH_USER, PUTUSERPIC_USER} from "./actions";
 import { withAsyncReducer } from '../highOrderReducer'
 
 
@@ -39,6 +39,24 @@ const createUserReduxReducer = (
 }
 
 export const createUserRedux = withAsyncReducer(CREATE_USER, createUserReduxReducer)
+
+
+const deleteUserReduxReducer = (
+  state = getInitStateFromStorage("deleteUser", initialState),
+  action
+) => {
+  switch(action.type){
+    case DELETE_USER.SUCCESS:
+      initialState.result = action.payload
+      return { ...initialState };
+    default:
+      return state;
+  }
+}
+
+export const deleteUserRedux = withAsyncReducer(DELETE_USER, deleteUserReduxReducer)
+
+
 
 const getUserReduxReducer = (
   state = getInitStateFromStorage("getUser", initialState),

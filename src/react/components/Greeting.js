@@ -36,7 +36,7 @@ export default function Greeting(){
                       component={Link} 
                       to={`/`}
                   >
-                      Home 
+                      KWITTER 
                   </Button>
                   <Button 
                       color="primary"
@@ -47,7 +47,7 @@ export default function Greeting(){
                       Hello, {loggedIn.username}! 
                   </Button>
                   <Button 
-                      href="/signup"
+                      to="/"
                       color="primary"
                       className={classes.submit}
                       onClick={()=>dispatch(logout())}

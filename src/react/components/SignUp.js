@@ -4,7 +4,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import Link from '@material-ui/core/Link';
+import { Link, Redirect } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Spinner from "react-spinkit";
@@ -35,21 +35,17 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignUp(props) {
   const classes = useStyles();
+  const loggedIn = useSelector(state => state.loginUser.result)
   const { result, loading, error } = useSelector(state => state.createUserRedux)
-  if (result){
-    return (
-      <Container component="main" maxWidth="xs">
-        <div className={classes.paper}>
-        <Grid container justify="flex-end">
-            <Grid item>
-              <Link href="/login" variant="body2">
-                User created successfully! Click here to log in!
-              </Link>
-            </Grid>
-          </Grid>
-        </div>
-      </Container>
-    )}
+  if ( result || loggedIn ){
+    return(
+      <Redirect to="/" />
+      )}
+  else if (loggedIn){
+    return(
+    <Redirect to="/" />
+    )
+  }
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -117,7 +113,7 @@ export default function SignUp(props) {
           {error && <p style={{ color: "red" }}>Error: {error.message}</p>}
           <Grid container justify="flex-end">
             <Grid item>
-              <Link href="/" variant="body2">
+              <Link to="/login" variant="body2">
                 Already have an account? Log in
               </Link>
             </Grid>

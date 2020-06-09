@@ -49,6 +49,37 @@ export const createUser = createUserData => dispatch => {
     });
 };
 
+export const DELETE_USER = createActionTypes("DELETE_USER")
+
+export const deleteUser = () => (dispatch, getState) => {
+  dispatch({
+    type: DELETE_USER.START
+  })
+  const username = getState().loginUser.result.username;
+  const token = getState().loginUser.result.token;
+
+  return fetch(`${authUrl}/${username}`, {
+    method: "DELETE", 
+    headers: {
+      Authorization: "Bearer " + token,
+      Accept: "application/json"
+    },
+  })
+    .then(handleJsonResponse)
+    .then(result => {
+      return dispatch({
+        type: DELETE_USER.SUCCESS,
+        payload: result
+      });
+    })
+    .catch(err => {
+      return Promise.reject(dispatch({
+        type: DELETE_USER.FAIL,
+        payload: err
+      }));
+    });
+};
+
 export const GET_USER = createActionTypes("GET_USER")
 
 export const getUser = getUserData => dispatch => {
