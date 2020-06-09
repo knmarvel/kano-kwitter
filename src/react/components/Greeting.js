@@ -34,6 +34,14 @@ export default function Greeting(){
                       color="primary"
                       className={classes.submit}
                       component={Link} 
+                      to={`/`}
+                  >
+                      Home 
+                  </Button>
+                  <Button 
+                      color="primary"
+                      className={classes.submit}
+                      component={Link} 
                       to={`/users/${loggedIn.username}`}
                   >
                       Hello, {loggedIn.username}! 

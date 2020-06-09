@@ -1,6 +1,8 @@
 import React from 'react'
 import { Redirect } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+import { useLocation, useHistory } from "react-router-dom";
+
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -34,10 +36,11 @@ const useStyles = makeStyles((theme) => ({
 
 function LogIn(props) {
     const classes = useStyles();
+    const history = useHistory()
     const {result, loading, error } = useSelector(state => state.loginUser)
     if(result){
         if(result.statusCode === 200){
-            return <Redirect path="/"></Redirect>
+            history.goBack()
         }
     }
     return (

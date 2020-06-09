@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import Link from '@material-ui/core/Link';
+import { Link } from 'react-router-dom'
 import Grid from '@material-ui/core/Grid';
 import Spinner from "react-spinkit";
 import UpdateIcon from '@material-ui/icons/Update';
@@ -13,6 +13,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
 import { Greeting } from '.'
+import { patchUser } from "../../redux"
 
 
 const useStyles = makeStyles((theme) => ({
@@ -39,6 +40,9 @@ export default function UpdateUser() {
     const [password, setPassword] = useState('');
     const [displayName, setDisplayName] = useState('');
     const [about, setAbout] = useState('');
+    const dispatch = useDispatch()
+    const loggedInUser = useSelector(state => state.loginUser.result)
+
     
     const handleDisplayNameChange = (event) => {
         setDisplayName(event.target.value)
@@ -50,25 +54,34 @@ export default function UpdateUser() {
         setPassword(event.target.value)
     }
 
+    const handleSubmit = (event) => {
+      event.preventDefault()
+      const patchUserData = {
+        'password': password, 
+        'about': about, 
+        'displayName': displayName}
+      console.log(patchUserData)
+      dispatch(patchUser(patchUserData))
+    }
+
   const classes = useStyles();
-//   const loggedInUser = useSelector(state => state.loginUser.result.user.username)
-//   const { result, loading, error } = useSelector(state => state.updateUserRedux)
+  const { result, loading, error } = useSelector(state => state.patchUserRedux)
 
 //   const []
-//   if (result){
-//     return (
-//       <Container component="main" maxWidth="xs">
-//         <div className={classes.paper}>
-//         <Grid container justify="flex-end">
-//             <Grid item>
-//               <Link href={`/users/${loggedInUser}`} variant="body2">
-//                 User updated successfully! Click here to go back to your profile. 
-//               </Link>
-//             </Grid>
-//           </Grid>
-//         </div>
-//       </Container>
-//     )}
+  if (result){
+    return (
+      <Container component="main" maxWidth="xs">
+        <div className={classes.paper}>
+        <Grid container justify="flex-end">
+            <Grid item>
+              <Link href={`/users/${loggedInUser.username}`} variant="body2">
+                User updated successfully! Click here to go back to your profile. 
+              </Link>
+            </Grid>
+          </Grid>
+        </div>
+      </Container>
+    )}
   return (
     <Container component="main" maxWidth="xs">
     
@@ -83,7 +96,7 @@ export default function UpdateUser() {
         </Typography>
         <form 
             className={classes.form}
-            // onSubmit={props.handleSubmitNewUser}
+            onSubmit={handleSubmit}
             noValidate>
                       <Grid container spacing={2}>
             <Grid item xs={12}>
@@ -134,13 +147,15 @@ export default function UpdateUser() {
           >
             Update User Information
           </Button>
-          {/* {loading && <Spinner name="circle" color="blue" />}
-          {error && <p style={{ color: "red" }}>Error: {error.message}</p>} */}
+          {loading && <Spinner name="circle" color="blue" />}
+          {error && <p style={{ color: "red" }}>Error: {error.message}</p>}
           <Grid container justify="flex-end">
             <Grid item>
-              <Link href="/" variant="body2">
-                Already have an account? Log in
-              </Link>
+              {loggedInUser && 
+              (<Link to={`/users/${loggedInUser.username}`} variant="body2">
+                Go back to profile without making changes
+              </Link>)
+              }
             </Grid>
           </Grid>
         </form>
