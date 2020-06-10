@@ -67,14 +67,14 @@ export default function UpdateUser() {
   const classes = useStyles();
   const { result, loading, error } = useSelector(state => state.patchUserRedux)
 
-//   const []
+
   if (result){
     return (
       <Container component="main" maxWidth="xs">
         <div className={classes.paper}>
         <Grid container justify="flex-end">
             <Grid item>
-              <Link href={`/users/${loggedInUser.username}`} variant="body2">
+              <Link to={`/users/${loggedInUser.username}`} variant="body2">
                 User updated successfully! Click here to go back to your profile. 
               </Link>
             </Grid>

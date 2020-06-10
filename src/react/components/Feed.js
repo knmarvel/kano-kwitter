@@ -27,11 +27,12 @@ const useStyles = makeStyles({
 
 export default function Feed(props){
     const dispatch = useDispatch()
-    const [username, setUsername] = React.useState()
+    const [username, setUsername] = React.useState(props.feedType)
     const [limit, setLimit] = React.useState(100);
     const [offset, setOffset] = React.useState(0);
     const classes = useStyles();
     let data
+ 
     if(username){
         data = {
             'limit': limit,
@@ -55,7 +56,7 @@ export default function Feed(props){
                 <Container component="main" maxWidth="xs">
                     <div className={classes.paper}>
                         <Typography variant='h3'>
-                            {props.feedType === "all" && "All Kweets"}
+                            {props.feedType === "all" ? "All Kweets" : "@" + props.feedType +"'s Kweets"}
                         </Typography>
                 {result && result.messages.map(message => {
                     return <Kweet message={message} key={"KF" + message.id}></Kweet>

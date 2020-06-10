@@ -10,7 +10,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { deleteUser } from "../../redux";
 
-export default function FormDialog(props) {
+export default function DeleteUser(props) {
   const [open, setOpen] = React.useState(false);
   const [username, setUsername] = React.useState("");
   const dispatch = useDispatch();
@@ -37,8 +37,8 @@ export default function FormDialog(props) {
   };
 
   return (
-    <div>
-      <Button variant="filled" color="secondary" onClick={handleClickOpen}>
+    <span>
+      <Button color="secondary" size="small" onClick={handleClickOpen}>
         Delete User
       </Button>
       <Dialog
@@ -47,8 +47,7 @@ export default function FormDialog(props) {
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">
-          Are you sure you want to delete your Kwitter profile? All your Kweets
-          and likes will also be removed.
+          Are you sure you want to delete your Kwitter profile? Your Kweets and Likes will remain.
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
@@ -66,7 +65,7 @@ export default function FormDialog(props) {
         </DialogContent>
         <DialogActions>
           {username === props.children && (
-            <Button onClick={handleDelete} color="primary">
+            <Button onClick={handleDelete} variant="contained" color="secondary">
               Delete {props.chilren} permanently!
             </Button>
           )}
@@ -75,6 +74,6 @@ export default function FormDialog(props) {
           </Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </span>
   );
 }

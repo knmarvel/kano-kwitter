@@ -28,7 +28,7 @@ export const getMessages = getMessagesData => dispatch => {
     type: GET_MESSAGES.START
   })
   let getMessagesUrl
-  if(getMessagesData.username){
+  if(getMessagesData.username != 'all'){
     getMessagesUrl = `${messageUrl}?limit=${getMessagesData.limit}&offset=${getMessagesData.offset}&username=${getMessagesData.username}`
   }
   else {

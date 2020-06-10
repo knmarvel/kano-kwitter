@@ -12,7 +12,7 @@ import Container from "@material-ui/core/Container";
 import Spinner from "react-spinkit";
 import Typography from "@material-ui/core/Typography";
 
-import { DeleteUser, Greeting } from '.'
+import { DeleteUser, Feed, Greeting } from '.'
 import { getUser } from '../../redux/';
 
 
@@ -89,12 +89,12 @@ export default function SimpleCard(props) {
                   <span style={{display: 'flex', alignItems:'center'}} >
                     <Avatar alt={result.user.displayName} src={result.user.pictureLocation && `https://cjkkwitter.herokuapp.com${result.user.pictureLocation.slice(0,19)}`} className={classes.large} /> {result.user.displayName}</span>
                 </Typography>
-                <Typography className={classes.pos} color="textSecondary">
+                <Typography variant="body2" className={classes.pos} color="textSecondary">
                   User created: {new Date(result.user.createdAt).toDateString()}
                   <br />
                   User last updated: {new Date(result.user.updatedAt).toDateString()}
                 </Typography>
-                <Typography variant="body2" component="p">
+                <Typography variant="body1" component="p">
                   About: {result.user.about}
                 </Typography>
               </div>
@@ -119,6 +119,7 @@ export default function SimpleCard(props) {
         </Card>
       </div>
     </Container>
+    {result && <Feed feedType={result.user.username}/>}
     </div>
   );
 }
