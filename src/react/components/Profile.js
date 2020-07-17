@@ -87,7 +87,7 @@ export default function SimpleCard(props) {
               <div>
                 <Typography style={{display: 'flex'}} variant="h5" component="h2">
                   <span style={{display: 'flex', alignItems:'center'}} >
-                    <Avatar alt={result.user.displayName} src={result.user.pictureLocation && `https://cjkkwitter.herokuapp.com${result.user.pictureLocation.slice(0,19)}`} className={classes.large} /> {result.user.displayName}</span>
+                    <Avatar alt={result.user.displayName} src={result.user.pictureLocation && `https://cjkkwitter.herokuapp.com/users/${result.user.username}/picture`} className={classes.large} /> {result.user.displayName}</span>
                 </Typography>
                 <Typography variant="body2" className={classes.pos} color="textSecondary">
                   User created: {new Date(result.user.createdAt).toDateString()}

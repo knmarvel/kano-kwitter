@@ -80,6 +80,33 @@ export const deleteUser = () => (dispatch, getState) => {
     });
 };
 
+export const GET_ALL_USERS = createActionTypes("GET_ALL_USERS")
+
+export const getAllUsers = (getAllUsersData) => dispatch => {
+  dispatch({
+    type: GET_ALL_USERS.START
+  })
+  return fetch(`${authUrl}?limit=${getAllUsersData.limit}&offset=${getAllUsers.offset}`, {
+    method: "GET",
+    headers: {
+      Accept: 'application/json'
+    }
+  })
+  .then(handleJsonResponse)
+  .then(result => {
+    return dispatch({
+      type: GET_ALL_USERS.SUCCESS,
+      payload: result
+    })
+  })
+  .catch(err => {
+    return Promise.reject(dispatch({
+      type: GET_ALL_USERS.FAIL,
+      payload: err
+    }))
+  })
+}
+
 export const GET_USER = createActionTypes("GET_USER")
 
 export const getUser = getUserData => dispatch => {

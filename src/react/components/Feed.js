@@ -27,9 +27,9 @@ const useStyles = makeStyles({
 
 export default function Feed(props){
     const dispatch = useDispatch()
-    const [username, setUsername] = React.useState(props.feedType)
-    const [limit, setLimit] = React.useState(100);
-    const [offset, setOffset] = React.useState(0);
+    const [username] = React.useState(props.feedType)
+    const [limit] = React.useState(100);
+    const [offset] = React.useState(0);
     const classes = useStyles();
     let data
  

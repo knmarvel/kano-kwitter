@@ -36,7 +36,7 @@ export default function Greeting(){
                       component={Link} 
                       to={`/`}
                   >
-                      KWITTER 
+                      Home 
                   </Button>
                   <Button 
                       color="primary"
@@ -57,8 +57,23 @@ export default function Greeting(){
                 </div>
                 ) : (
                   <div>
-                    You are currently logged out. <Link to="/login">Log in?</Link>
-                  </div>
+                  <Button 
+                      color="primary"
+                      className={classes.submit}
+                      component={Link} 
+                      to={`/`}
+                  >
+                      Home 
+                  </Button>
+                  <Button 
+                      color="primary"
+                      className={classes.submit}
+                      component={Link} 
+                      to={`/login`}
+                  >
+                      Log in 
+                  </Button>
+                </div>
               )}
         </div>
       </Container>
